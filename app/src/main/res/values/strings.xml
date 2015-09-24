@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">DBForAndroid</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <!--名字吧-->
+    <string name="app_name_ch">数据库</string>
+
+    <string-array name="db_items">
+        <item>create DB</item>
+        <item>insert DB</item>
+        <item>update DB</item>
+        <item>delete DB</item>
+    </string-array>
+</resources>
