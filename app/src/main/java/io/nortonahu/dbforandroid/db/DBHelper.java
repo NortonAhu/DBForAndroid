@@ -3,7 +3,10 @@ package io.nortonahu.dbforandroid.db;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Environment;
 import android.util.Log;
+
+import java.io.File;
 
 /**
  * Author:    Hong Yu
@@ -20,7 +23,9 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String TAG = "DBHelper";
 
     public static final String TABLE_NAME = "person";
-    public static final String DATABASE_NAME = "test.db";
+    public static final String DATABASE_NAME = Environment.getExternalStorageDirectory() + File.separator + "db" +
+            File.separator + "test.db";
+//        public static final String DATABASE_NAME = "test.db";
     private static final int DB_BASE_VERSION = 1;
 
     public DBHelper(Context context) {
@@ -31,14 +36,14 @@ public class DBHelper extends SQLiteOpenHelper {
     // 第一次创建数据库的时候会调用，之后就不会调用了
     @Override
     public void onCreate(SQLiteDatabase db) {
-        Log.e(TAG,"onCreate");
-        db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_NAME +" (_id INTEGER PRIMARY KEY , name VARCHAR, age INTEGER, info TEXT)");
+        Log.e(TAG, "onCreate");
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (_id INTEGER PRIMARY KEY , name VARCHAR, age INTEGER, info TEXT)");
     }
 
     // DATABASE_VERSION 值被改为2时，系统发现数据库版本不同的时候 会调用更新方法
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.e(TAG,"onUpgrade");
+        Log.e(TAG, "onUpgrade");
         db.execSQL("ALERT TABLE " + TABLE_NAME + " ADD COLUMN other STRING");
     }
 
