@@ -27,7 +27,13 @@
                 <action android:name="io.nortonahu.dbforandroid.activity.DataShowActivity" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+        </activity>
 
+        <activity android:name=".activity.TextViewUnfoldActivity">
+            <intent-filter>
+                <action android:name="io.nortonahu.dbforandroid.activity.TextViewUnfoldActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
 
     </application>

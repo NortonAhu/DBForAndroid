@@ -14,5 +14,6 @@
         <item>update DB</item>
         <item>delete DB</item>
         <item>show DB</item>
+        <item>全文展开</item>
     </string-array>
 </resources>

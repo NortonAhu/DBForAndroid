@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="8"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/content_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:background="@color/lemonyellow"
+            android:textColor="@color/black"/>
+        <Button
+            android:id="@+id/expand"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="全文"
+            android:visibility="gone"/>
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/input_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:textSize="15sp"
+        android:hint="请输入文字"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:paddingTop="10dp"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/add_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:maxHeight="30dp"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:text="增加"/>
+        <Button
+            android:id="@+id/line_count"
+            android:layout_width="0dp"
+            android:maxHeight="30dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:text="行数"/>
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -89,11 +89,16 @@ public class NormalRecyclerViewAdapter extends RecyclerView.Adapter<NormalRecycl
                     insert();
                     break;
                 case 2:
+                    update();
                     break;
                 case 3:
+                    delete();
                     break;
                 case 4:
                     showDataActivity();
+                    break;
+                case 5:
+                    showTextViewActivity();
                     break;
                 default:
                     break;
@@ -151,7 +156,7 @@ public class NormalRecyclerViewAdapter extends RecyclerView.Adapter<NormalRecycl
          */
         private void delete() {
             Person person = new Person();
-            person.age = 30;
+            person.name = "yuhong";
             dbMgr.delete(person);
         }
 
@@ -164,7 +169,14 @@ public class NormalRecyclerViewAdapter extends RecyclerView.Adapter<NormalRecycl
             mContext.startActivity(intent);
         }
 
-
+        /**
+         * 展开关闭
+         */
+        public void showTextViewActivity() {
+            Intent intent = new Intent();
+            intent.setAction(AppConstants.SHOW_CUSTOMVIEW_ACTION);
+            mContext.startActivity(intent);
+        }
     }
 
 }

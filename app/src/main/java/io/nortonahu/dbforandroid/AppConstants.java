@@ -23,4 +23,9 @@ public class AppConstants {
      */
     public static final String SHOW_DATA_ACTION = "io.nortonahu.dbforandroid.activity.DataShowActivity";
 
+    /**
+     * 打开自定义TextView界面
+     */
+    public static final String SHOW_CUSTOMVIEW_ACTION = "io.nortonahu.dbforandroid.activity.TextViewUnfoldActivity";
+
 }
