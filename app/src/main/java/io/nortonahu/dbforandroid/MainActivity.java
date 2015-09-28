@@ -1,16 +1,18 @@
 package io.nortonahu.dbforandroid;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import java.io.File;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -28,16 +30,16 @@ public class MainActivity extends AppCompatActivity {
 
     DBManager mDBManager;
 
-    private static final String TAB_NAME = "test.db";
+    private static final String TAB_NAME = Environment.getExternalStorageDirectory() + File.separator + "db" + File.separator+"test.db";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        setTitle(AppContext.string(R.string.app_name_ch));
+        setTitle(AppContext.string(R.string.main_title_zh));
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        mDBManager = new DBManager(this);
-        recyclerView.setAdapter(new NormalRecyclerViewAdapter(this, mDBManager));
+        recyclerView.setAdapter(new NormalRecyclerViewAdapter(this));
     }
 
     @Override
@@ -63,42 +65,42 @@ public class MainActivity extends AppCompatActivity {
         person.name = "LiLei";
         person.age = 12;
         // 插入数据
-        db.execSQL("INSERT INTO person VALUES (NULL, ?, ?)",new Object[]{person.getName(), person.getAge()});
-        Cursor cursor = db.rawQuery("SELECT * FROM PERSON ", new String[]{});
-        showDBInfo(cursor);
-
-        person.name = "David";
-        person.age = 45;
-
-        // 使用 ContentValue (本身是一个 map) 采用键值对的方式插入数据库
-
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("name", person.name);
-        contentValues.put("age", person.age);
-        // 插入数据库
-        db.insert("person", null, contentValues);
-        cursor = db.rawQuery("SELECT * FROM PERSON ", new String[]{});
-        showDBInfo(cursor);
-
-        contentValues = new ContentValues();
-        contentValues.put("age", 58);
-        // 更新数据
-        db.update("person", contentValues, "name = ?", new String[]{"LiLei"});
-        cursor = db.rawQuery("SELECT * FROM PERSON ", new String[]{});
-        showDBInfo(cursor);
-        // 按条件查找
-        cursor = db.rawQuery("SELECT * FROM PERSON WHERE AGE >= ?",new String[]{"46"});
-        showDBInfo(cursor);
+        db.execSQL("INSERT INTO person VALUES (NULL, ?, ?)", new Object[]{person.getName(), person.getAge()});
+//        Cursor cursor = db.rawQuery("SELECT * FROM PERSON ", new String[]{});
+//        showDBInfo(cursor);
+//
+//        person.name = "David";
+//        person.age = 45;
+//
+//        // 使用 ContentValue (本身是一个 map) 采用键值对的方式插入数据库
+//
+//        ContentValues contentValues = new ContentValues();
+//        contentValues.put("name", person.name);
+//        contentValues.put("age", person.age);
+//        // 插入数据库
+//        db.insert("person", null, contentValues);
+//        cursor = db.rawQuery("SELECT * FROM PERSON ", new String[]{});
+//        showDBInfo(cursor);
+//
+//        contentValues = new ContentValues();
+//        contentValues.put("age", 58);
+//        // 更新数据
+//        db.update("person", contentValues, "name = ?", new String[]{"LiLei"});
+//        cursor = db.rawQuery("SELECT * FROM PERSON ", new String[]{});
+//        showDBInfo(cursor);
+//        // 按条件查找
+//        cursor = db.rawQuery("SELECT * FROM PERSON WHERE AGE >= ?", new String[]{"46"});
+//        showDBInfo(cursor);
+//
+//        // 删除数据
+//        db.delete("person", "name = ?", new String[]{"LiLei"});
+//        cursor = db.rawQuery("SELECT * FROM PERSON ", new String[]{});
+//        showDBInfo(cursor);
+//
+//        cursor.close();
 
         // 删除数据
-        db.delete("person","name = ?", new String[]{"LiLei"});
-        cursor = db.rawQuery("SELECT * FROM PERSON ", new String[]{});
-        showDBInfo(cursor);
-
-        cursor.close();
-
-        // 删除数据
-        deleteDatabase(TAB_NAME);
+//        deleteDatabase(TAB_NAME);
     }
 
     @Override
@@ -120,12 +122,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.unbind(this);
-        mDBManager.closeDB();
+        if (mDBManager != null) {
+            mDBManager.closeDB();
+        }
     }
 
     private void showDBInfo(Cursor cursor) {
         // TODO 以前记得这里是要注意的
-        while(cursor.moveToNext()){
+        while (cursor.moveToNext()) {
             int _id = cursor.getInt(cursor.getColumnIndex("_id"));
             String name = cursor.getString(cursor.getColumnIndex("name"));
             int age = cursor.getInt(cursor.getColumnIndex("age"));

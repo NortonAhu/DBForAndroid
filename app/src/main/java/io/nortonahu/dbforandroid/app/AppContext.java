@@ -3,6 +3,8 @@ package io.nortonahu.dbforandroid.app;
 import android.app.Application;
 import android.content.Context;
 import android.content.res.Resources;
+import android.os.Environment;
+import android.util.Log;
 
 /**
  * Author:    Hong Yu
@@ -41,6 +43,11 @@ public class AppContext extends Application {
 
     public static String[] stringArray(int resId) {
         return mResources.getStringArray(resId);
+    }
+
+    public static String getExternalFileDir() {
+        Log.e("yhtest",getContext().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS).toString());
+       return getContext().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS).toString();
     }
 
 

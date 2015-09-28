@@ -36,22 +36,26 @@ public class DBManager {
 
     /**
      * add person 简单的一种循环插入 事务处理
+     *
      * @param persons
      */
     public void add(List<Person> persons) {
         mDB.beginTransaction();
         try {
-            for (Person person:persons){
-                mDB.execSQL("INSERT INTO " + DBHelper.TABLE_NAME + " VALUES(null,?,?)",new Object[]
+            for (Person person : persons) {
+                mDB.execSQL("INSERT INTO " + DBHelper.TABLE_NAME + " VALUES(null,?,?,?)", new Object[]
                         {person.name, person.age, person.info});
             }
-        }finally {
+            // 这里一定要注意设置事务结束啊
+            mDB.setTransactionSuccessful();
+        } finally {
             mDB.endTransaction();
         }
     }
 
     /**
      * 更新对象年龄
+     *
      * @param person
      */
     public void updateAge(Person person) {
@@ -62,6 +66,7 @@ public class DBManager {
 
     /**
      * 删除一个对象
+     *
      * @param person
      */
     public void delete(Person person) {
@@ -70,12 +75,13 @@ public class DBManager {
 
     /**
      * 查询所有的对象返回一个队列
+     *
      * @return
      */
     public List<Person> query() {
         ArrayList<Person> persons = new ArrayList<>();
         Cursor cursor = queryAllCursor();
-        while(cursor.moveToNext()){
+        while (cursor.moveToNext()) {
             Person person = new Person();
             person._id = cursor.getString(cursor.getColumnIndex(Person.KEY_ID));
             person.name = cursor.getString(cursor.getColumnIndex(Person.KEY_NAME));
@@ -83,15 +89,28 @@ public class DBManager {
             person.info = cursor.getString(cursor.getColumnIndex(Person.KEY_INFO));
             persons.add(person);
         }
+        cursor.close();
         return persons;
     }
 
     /**
+     * 插入单个数据
      *
+     * @param person
+     */
+    public void insert(Person person) {
+        ContentValues contentValue = new ContentValues();
+        contentValue.put(Person.KEY_NAME,person.name);
+        contentValue.put(Person.KEY_AGE,person.age);
+        contentValue.put(Person.KEY_INFO,person.info);
+        mDB.insert(DBHelper.TABLE_NAME,null,contentValue);
+    }
+
+    /**
      * @return
      */
     public Cursor queryAllCursor() {
-       return mDB.rawQuery("SELECT * FROM " + DBHelper.TABLE_NAME,null);
+        return mDB.rawQuery("SELECT * FROM person", null);
     }
 
     /**
