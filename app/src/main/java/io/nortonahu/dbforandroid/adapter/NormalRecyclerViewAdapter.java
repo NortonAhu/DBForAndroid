@@ -37,18 +37,19 @@ public class NormalRecyclerViewAdapter extends RecyclerView.Adapter<NormalRecycl
     private Context mContext;
 
     private String[] mTitles;
-    private DBManager mDBManager;
 
     public NormalRecyclerViewAdapter(Context context) {
         this.mContext = context;
         mLayoutInflate = LayoutInflater.from(context);
-        mTitles = AppContext.stringArray(R.array.db_items);
-        mDBManager = new DBManager(context);
+//        mTitles = AppContext.stringArray(R.array.db_items);
     }
 
+    public void setData(String[] values) {
+        mTitles = values;
+    }
     @Override
     public NormalViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new NormalViewHolder(mLayoutInflate.inflate(R.layout.item_text, parent, false), mDBManager, mContext);
+        return new NormalViewHolder(mLayoutInflate.inflate(R.layout.item_text, parent, false), mContext);
     }
 
     @Override
@@ -69,10 +70,9 @@ public class NormalRecyclerViewAdapter extends RecyclerView.Adapter<NormalRecycl
 
         private Context mContext;
 
-        public NormalViewHolder(View itemView, DBManager dbMgr, Context context) {
+        public NormalViewHolder(View itemView, Context context) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            this.dbMgr = dbMgr;
             mContext = context;
         }
 
@@ -83,22 +83,22 @@ public class NormalRecyclerViewAdapter extends RecyclerView.Adapter<NormalRecycl
             }
             switch ((Integer) view.getTag()) {
                 case 0:
-                    add();
+//                    add();
                     break;
                 case 1:
-                    insert();
+//                    insert();
                     break;
                 case 2:
-                    update();
+//                    update();
                     break;
                 case 3:
-                    delete();
+//                    delete();
                     break;
                 case 4:
-                    showDataActivity();
+//                    showDataActivity();
                     break;
                 case 5:
-                    showTextViewActivity();
+//                    showTextViewActivity();
                     break;
                 default:
                     break;
